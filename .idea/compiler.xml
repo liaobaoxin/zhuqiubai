@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="qiubai-admin" />
+        <module name="qiubai-common" />
+        <module name="qiubai-framework" />
+        <module name="qiubai-generator" />
+        <module name="qiubai-quartz" />
+        <module name="qiubai-system" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dao" target="1.8" />
+      <module name="domain" target="1.8" />
+      <module name="qiubai-common" target="1.8" />
+      <module name="qiubaicommon" target="1.8" />
+      <module name="service" target="1.8" />
+      <module name="web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="qiubai-admin" options="" />
+      <module name="web" options="" />
+    </option>
+  </component>
+</project>
