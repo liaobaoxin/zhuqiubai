@@ -1,11 +1,11 @@
 package com.zqb.framework.config;
 
-import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.util.Date;
 
-public class CustomMetaObjectHandler extends MetaObjectHandler {
+public class CustomMetaObjectHandler implements MetaObjectHandler {
 
     public static final String COMMON_FIELD_CREATEDATE = "createDate";
 

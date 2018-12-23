@@ -1,12 +1,12 @@
 package com.zqb.web.Controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zqb.system.domain.SysOperLog;
 import com.zqb.system.domain.User;
+import com.zqb.system.service.ISysOperLogService;
 import com.zqb.system.service.IUserService;
-import com.zqb.system.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +23,10 @@ public class TestController {
     DataSource dataSource;
 
     @Autowired
-    UserServiceImpl userService;
+    IUserService userService;
+
+    @Autowired
+    ISysOperLogService sysOperLogService;
 
     @RequestMapping("/test")
     public void test1() throws SQLException {
@@ -34,7 +37,18 @@ public class TestController {
     @RequestMapping("/test1")
     @ResponseBody
     public List<User> test2() {
-        List<User> users = userService.selectList(null);
+//        List<User> users = userService.selectList(null);
+        List<User> users = userService.list();
         return users;
+    }
+
+    @RequestMapping("/test3")
+    @ResponseBody
+    public SysOperLog test3() {
+//        List<User> users = userService.selectList(null);
+        QueryWrapper<SysOperLog> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(SysOperLog::getTitle, "代码生成");
+        SysOperLog operLog = sysOperLogService.getOne(wrapper);
+        return operLog;
     }
 }

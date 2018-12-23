@@ -6,10 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
+import springfox.documentation.annotations.Cacheable;
 
 @SpringBootApplication(scanBasePackages = {"com.zqb"})
-//@SpringBootApplication
+@EnableCaching
 public class ZqbApplication {
 
 	public static void main(String[] args) {

@@ -62,16 +62,22 @@
         </dependency>
 
         <!-- mybatis-plus begin -->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatisplus-spring-boot-starter</artifactId>
             <version>1.0.5</version>
-        </dependency>
+        </dependency>-->
         <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.0.6</version>
+        </dependency>
+
+       <!-- <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
             <version>2.1.9</version>
-        </dependency>
+        </dependency>-->
         <!-- mybatis-plus end -->
 
         <!-- lombok -->

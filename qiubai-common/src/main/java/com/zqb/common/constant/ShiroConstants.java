@@ -10,12 +10,12 @@ public interface ShiroConstants
     /**
      * 当前登录的用户
      */
-    public static final String CURRENT_USER = "currentUser";
+     String CURRENT_USER = "currentUser";
 
     /**
      * 用户名
      */
-    public static final String CURRENT_USERNAME = "username";
+     String CURRENT_USERNAME = "username";
 
     /**
      * 消息key
@@ -40,25 +40,25 @@ public interface ShiroConstants
     /**
      * 验证码key
      */
-    public static final String CURRENT_CAPTCHA = "captcha";
+     String CURRENT_CAPTCHA = "captcha";
 
     /**
      * 验证码开关
      */
-    public static final String CURRENT_ENABLED = "captchaEnabled";
+     String CURRENT_ENABLED = "captchaEnabled";
 
     /**
      * 验证码开关
      */
-    public static final String CURRENT_TYPE = "captchaType";
+     String CURRENT_TYPE = "captchaType";
 
     /**
      * 验证码
      */
-    public static final String CURRENT_VALIDATECODE = "validateCode";
+     String CURRENT_VALIDATECODE = "validateCode";
 
     /**
      * 验证码错误
      */
-    public static final String CAPTCHA_ERROR = "captchaError";
+     String CAPTCHA_ERROR = "captchaError";
 }
