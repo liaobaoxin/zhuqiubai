@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zqb.system.mapper.SysMenuMapper">
 
-	<resultMap type="com.zqb.system.domain.SysMenu" id="SysMenuResult">
+	<resultMap type="SysMenu" id="SysMenuResult">
 		<id     property="menuId"         column="menu_id"        />
 		<result property="menuName"       column="menu_name"      />
 		<result property="parentName"     column="parent_name"    />

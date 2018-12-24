@@ -1,14 +1,9 @@
 package com.zqb.framework.shiro.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zqb.common.constant.Constants;
 import com.zqb.common.constant.ShiroConstants;
 import com.zqb.common.constant.UserConstants;
 import com.zqb.common.enums.UserStatus;
-import com.zqb.common.utils.DateUtils;
-import com.zqb.framework.manager.AsyncManager;
-import com.zqb.framework.manager.factory.AsyncFactory;
 import com.zqb.framework.util.MessageUtils;
 import com.zqb.framework.util.RecordUtils;
 import com.zqb.framework.util.ServletUtils;
@@ -64,20 +59,17 @@ public class SysLoginService {
         }
 
         // 查询用户信息
-        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(SysUser::getLoginName, username);
-        SysUser user = userService.getOne(wrapper);
+
+        SysUser user = userService.selectUserByLoginName(username);
 
         if (user == null && maybeMobilePhoneNumber(username)) {
-            wrapper = new QueryWrapper<>();
-            wrapper.lambda().eq(SysUser::getPhonenumber, username);
-            user = userService.getOne(wrapper);
+
+            userService.selectUserByPhoneNumber(username);
         }
 
         if (user == null && maybeEmail(username)) {
-            wrapper = new QueryWrapper<>();
-            wrapper.lambda().eq(SysUser::getPhonenumber, username);
-            user = userService.getOne(wrapper);
+
+            user = userService.selectUserByEmail(username);
         }
 
         if (user == null) {

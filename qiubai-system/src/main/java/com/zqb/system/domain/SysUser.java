@@ -1,6 +1,7 @@
 package com.zqb.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -137,14 +138,18 @@ public class SysUser implements Serializable {
     }
 
     /** 部门对象 */
+    @TableField(exist = false)
     private SysDept dept;
 
+    @TableField(exist = false)
     private List<SysRole> roles;
 
     /** 角色组 */
+    @TableField(exist = false)
     private Long[] roleIds;
 
     /** 岗位组 */
+    @TableField(exist = false)
     private Long[] postIds;
 
 }

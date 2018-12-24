@@ -1,11 +1,9 @@
 package com.zqb.framework.util;
 
 
-import com.zqb.common.utils.bean.BeanUtils;
 import com.zqb.system.domain.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
@@ -44,6 +42,11 @@ public class ShiroUtils {
 
     public static String getSessionId() {
         return String.valueOf(getSubjct().getSession().getId());
+    }
+
+    public static void setSysUser(SysUser user)
+    {
+        ShiroUtils.getSession().setAttribute("sysUser", user);
     }
 
     /**

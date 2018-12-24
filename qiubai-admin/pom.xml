@@ -75,6 +75,12 @@
                 <configuration>
                     <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-loader-tools</artifactId>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
