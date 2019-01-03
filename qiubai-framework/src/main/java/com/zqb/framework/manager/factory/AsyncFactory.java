@@ -7,9 +7,10 @@ import com.zqb.framework.util.LogUtils;
 import com.zqb.framework.util.ServletUtils;
 import com.zqb.framework.util.ShiroUtils;
 import com.zqb.framework.util.SpringUtils;
-
 import com.zqb.system.domain.SysLoginInfo;
+import com.zqb.system.domain.SysOperLog;
 import com.zqb.system.domain.SysUserOnline;
+import com.zqb.system.service.ISysOperLogService;
 import com.zqb.system.service.impl.SysLoginInfoServiceImpl;
 import com.zqb.system.service.impl.SysUserOnlineServiceImpl;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -27,21 +28,16 @@ public class AsyncFactory {
     private static final Logger sys_user_logger = LoggerFactory.getLogger("sys-user");
 
 
-
-
     /**
      * 同步session到数据库
      *
      * @param session 在线用户会话
      * @return 任务task
      */
-    public static TimerTask syncSessionToDb(final OnlineSession session)
-    {
-        return new TimerTask()
-        {
+    public static TimerTask syncSessionToDb(final OnlineSession session) {
+        return new TimerTask() {
             @Override
-            public void run()
-            {
+            public void run() {
                 SysUserOnline online = new SysUserOnline();
                 online.setSessionId(String.valueOf(session.getId()));
                 online.setDeptName(session.getDeptName());
@@ -111,7 +107,23 @@ public class AsyncFactory {
     }
 
     /**
-     * 记录登陆信息
+     * 操作日志记录
+     *
+     * @param operLog 操作日志信息
+     * @return 任务task
      */
+    public static TimerTask recordOper(final SysOperLog operLog) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                // 远程查询操作地点
+                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+                SpringUtils.getBean(ISysOperLogService.class).save(operLog);
+            }
+        };
+    }
+
+
+
 
 }

@@ -45,6 +45,7 @@
                     responseHandler: $.table.responseHandler            // 回调函数
                 });
             },
+
             // 查询条件
             queryParams: function(params) {
             	return {

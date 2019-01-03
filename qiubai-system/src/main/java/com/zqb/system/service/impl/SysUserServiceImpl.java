@@ -2,7 +2,6 @@ package com.zqb.system.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zqb.common.annotation.DataScope;
 import com.zqb.common.constant.UserConstants;
 import com.zqb.common.support.Convert;
 import com.zqb.common.utils.StringUtils;
@@ -49,7 +48,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(tableAlias = "u")
+//    @DataScope(tableAlias = "u")
     public List<SysUser> selectUserList(SysUser user)
     {
         return userMapper.selectUserList(user);

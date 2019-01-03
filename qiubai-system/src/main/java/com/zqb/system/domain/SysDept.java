@@ -1,12 +1,16 @@
 package com.zqb.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -27,12 +31,12 @@ public class SysDept implements Serializable {
      * 部门id
      */
     @TableId(value = "dept_id", type = IdType.AUTO)
-    private Integer deptId;
+    private Long deptId;
 
     /**
      * 父部门id
      */
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 祖级列表
@@ -47,7 +51,7 @@ public class SysDept implements Serializable {
     /**
      * 显示顺序
      */
-    private Integer orderNum;
+    private Long orderNum;
 
     /**
      * 负责人
@@ -93,6 +97,17 @@ public class SysDept implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+
+    /** 父部门名称 */
+    @TableField(exist = false)
+    private String parentName;
+
+
+    /** 请求参数 */
+    @TableField(exist = false)
+    private Map<String, Object> params=new HashMap<>();
+
 
 
 }

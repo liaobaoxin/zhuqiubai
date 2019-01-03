@@ -3,13 +3,16 @@ package com.zqb.system.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -22,7 +25,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysUser implements Serializable {
+public class SysUser  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -107,20 +110,22 @@ public class SysUser implements Serializable {
      */
     private String createBy;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
 
     /**
      * 更新者
      */
     private String updateBy;
 
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
+    /** 请求参数 */
+    @TableField(exist = false)
+    private Map<String, Object> params;
+
+
+
+    /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
 
     /**
      * 备注
@@ -151,5 +156,7 @@ public class SysUser implements Serializable {
     /** 岗位组 */
     @TableField(exist = false)
     private Long[] postIds;
+
+
 
 }

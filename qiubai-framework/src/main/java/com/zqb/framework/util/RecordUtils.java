@@ -2,6 +2,7 @@ package com.zqb.framework.util;
 
 import com.zqb.framework.manager.AsyncManager;
 import com.zqb.framework.manager.factory.AsyncFactory;
+import com.zqb.system.domain.SysOperLog;
 
 import java.util.TimerTask;
 
@@ -18,4 +19,14 @@ public class RecordUtils {
         TimerTask task = AsyncFactory.recordLoginInfo(username, status, message, args);
         AsyncManager.me().execute(task);
     }
+
+    /**
+     * 记录操作日志
+     */
+    public static void oper(SysOperLog operLog){
+        TimerTask task = AsyncFactory.recordOper(operLog);
+        AsyncManager.me().execute(task);
+    }
+
+
 }

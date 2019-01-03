@@ -1,7 +1,6 @@
 package com.zqb.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,44 +11,64 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 参数配置表
+ * 字典数据表
  * </p>
  *
  * @author zqb
- * @since 2018-12-24
+ * @since 2019-01-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysConfig implements Serializable {
+public class SysDictData implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 参数主键
+     * 字典编码
      */
-    @TableId(value = "config_id", type = IdType.AUTO)
-    private Integer configId;
+    @TableId(value = "dict_code", type = IdType.AUTO)
+    private Integer dictCode;
 
     /**
-     * 参数名称
+     * 字典排序
      */
-    private String configName;
+    private Integer dictSort;
 
     /**
-     * 参数键名
+     * 字典标签
      */
-    private String configKey;
+    private String dictLabel;
 
     /**
-     * 参数键值
+     * 字典键值
      */
-    private String configValue;
+    private String dictValue;
 
     /**
-     * 系统内置（Y是 N否）
+     * 字典类型
      */
-    private String configType;
+    private String dictType;
+
+    /**
+     * 样式属性（其他样式扩展）
+     */
+    private String cssClass;
+
+    /**
+     * 表格回显样式
+     */
+    private String listClass;
+
+    /**
+     * 是否默认（Y是 N否）
+     */
+    private String isDefault;
+
+    /**
+     * 状态（0正常 1停用）
+     */
+    private String status;
 
     /**
      * 创建者
@@ -75,9 +94,6 @@ public class SysConfig implements Serializable {
      * 备注
      */
     private String remark;
-
-    @TableField(exist = false)
-    private Integer parentId;
 
 
 }
