@@ -7,11 +7,14 @@ import com.zqb.common.support.Convert;
 import com.zqb.common.utils.StringUtils;
 import com.zqb.system.domain.SysRole;
 import com.zqb.system.domain.SysUser;
+import com.zqb.system.domain.SysUserPost;
+import com.zqb.system.domain.SysUserRole;
 import com.zqb.system.mapper.*;
 import com.zqb.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,13 +47,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * 根据条件分页查询用户对象
      *
      * @param user 用户信息
-     *
      * @return 用户信息集合信息
      */
     @Override
 //    @DataScope(tableAlias = "u")
-    public List<SysUser> selectUserList(SysUser user)
-    {
+    public List<SysUser> selectUserList(SysUser user) {
         return userMapper.selectUserList(user);
     }
 
@@ -61,8 +62,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 用户对象信息
      */
     @Override
-    public SysUser selectUserByLoginName(String userName)
-    {
+    public SysUser selectUserByLoginName(String userName) {
         return userMapper.selectUserByLoginName(userName);
     }
 
@@ -73,8 +73,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 用户对象信息
      */
     @Override
-    public SysUser selectUserByPhoneNumber(String phoneNumber)
-    {
+    public SysUser selectUserByPhoneNumber(String phoneNumber) {
         return userMapper.selectUserByPhoneNumber(phoneNumber);
     }
 
@@ -85,8 +84,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 用户对象信息
      */
     @Override
-    public SysUser selectUserByEmail(String email)
-    {
+    public SysUser selectUserByEmail(String email) {
         return userMapper.selectUserByEmail(email);
     }
 
@@ -97,8 +95,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 用户对象信息
      */
     @Override
-    public SysUser selectUserById(Long userId)
-    {
+    public SysUser selectUserById(Long userId) {
         return userMapper.selectUserById(userId);
     }
 
@@ -109,8 +106,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int deleteUserById(Long userId)
-    {
+    public int deleteUserById(Long userId) {
         // 删除用户与角色关联
         userRoleMapper.deleteById(userId);
         // 删除用户与岗位表
@@ -125,19 +121,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int deleteUserByIds(String ids) throws Exception
-    {
+    public int deleteUserByIds(String ids) throws Exception {
         Long[] userIds = Convert.toLongArray(ids);
-        for (Long userId : userIds)
-        {
-            if (SysUser.isAdmin(userId))
-            {
+        for (Long userId : userIds) {
+            if (SysUser.isAdmin(userId)) {
                 throw new Exception("不允许删除超级管理员用户");
             }
         }
         return userMapper.deleteUserByIds(userIds);
     }
-
 
 
     /**
@@ -147,8 +139,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int updateUserInfo(SysUser user)
-    {
+    public int updateUserInfo(SysUser user) {
         return userMapper.updateUser(user);
     }
 
@@ -159,11 +150,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int resetUserPwd(SysUser user)
-    {
+    public int resetUserPwd(SysUser user) {
         return updateUserInfo(user);
     }
-
 
 
     /**
@@ -173,11 +162,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public String checkLoginNameUnique(String loginName)
-    {
+    public String checkLoginNameUnique(String loginName) {
         int count = userMapper.checkLoginNameUnique(loginName);
-        if (count > 0)
-        {
+        if (count > 0) {
             return UserConstants.USER_NAME_NOT_UNIQUE;
         }
         return UserConstants.USER_NAME_UNIQUE;
@@ -190,12 +177,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public String checkPhoneUnique(SysUser user)
-    {
+    public String checkPhoneUnique(SysUser user) {
         Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
         SysUser info = userMapper.checkPhoneUnique(user.getPhonenumber());
-        if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue())
-        {
+        if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
             return UserConstants.USER_PHONE_NOT_UNIQUE;
         }
         return UserConstants.USER_PHONE_UNIQUE;
@@ -208,12 +193,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public String checkEmailUnique(SysUser user)
-    {
+    public String checkEmailUnique(SysUser user) {
         Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
         SysUser info = userMapper.checkEmailUnique(user.getEmail());
-        if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue())
-        {
+        if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
             return UserConstants.USER_EMAIL_NOT_UNIQUE;
         }
         return UserConstants.USER_EMAIL_UNIQUE;
@@ -226,19 +209,85 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public String selectUserRoleGroup(Long userId)
-    {
+    public String selectUserRoleGroup(Long userId) {
         List<SysRole> list = roleMapper.selectRolesByUserId(userId);
         StringBuffer idsStr = new StringBuffer();
-        for (SysRole role : list)
-        {
+        for (SysRole role : list) {
             idsStr.append(role.getRoleName()).append(",");
         }
-        if (StringUtils.isNotEmpty(idsStr.toString()))
-        {
+        if (StringUtils.isNotEmpty(idsStr.toString())) {
             return idsStr.substring(0, idsStr.length() - 1);
         }
         return idsStr.toString();
+    }
+
+    @Override
+    public int insertUser(SysUser user) {
+        // 新增用户信息
+        int rows = userMapper.insert(user);
+        // 新增用户岗位关联
+        insertUserPost(user);
+        // 新增用户与角色管理
+        insertUserRole(user);
+        return rows;
+    }
+
+    /**
+     * 新增用户岗位信息
+     *
+     * @param user 用户对象
+     */
+    public void insertUserPost(SysUser user) {
+        // 新增用户与岗位管理
+        List<SysUserPost> list = new ArrayList<SysUserPost>();
+        for (Long postId : user.getPostIds()) {
+            SysUserPost up = new SysUserPost();
+            up.setUserId(user.getUserId());
+            up.setPostId(postId);
+            list.add(up);
+        }
+        if (list.size() > 0) {
+            userPostMapper.batchUserPost(list);
+        }
+    }
+
+    /**
+     * 新增用户角色信息
+     *
+     * @param user 用户对象
+     */
+    public void insertUserRole(SysUser user) {
+        // 新增用户与角色管理
+        List<SysUserRole> list = new ArrayList<SysUserRole>();
+        for (Long roleId : user.getRoleIds()) {
+            SysUserRole ur = new SysUserRole();
+            ur.setUserId(user.getUserId());
+            ur.setRoleId(roleId);
+            list.add(ur);
+        }
+        if (list.size() > 0) {
+            userRoleMapper.batchUserRole(list);
+        }
+    }
+
+    /**
+     * 修改保存用户信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    @Override
+    public int updateUser(SysUser user) {
+        Long userId = user.getUserId();
+        // 删除用户与角色关联
+        userRoleMapper.deleteUserRoleByUserId(userId);
+        // 新增用户与角色管理
+        insertUserRole(user);
+        // 删除用户与岗位关联
+        userPostMapper.deleteUserPostByUserId(userId);
+        // 新增用户与岗位管理
+        insertUserPost(user);
+        return userMapper.updateUser(user);
     }
 
 

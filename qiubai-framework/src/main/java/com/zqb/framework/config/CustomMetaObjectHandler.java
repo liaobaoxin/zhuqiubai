@@ -10,12 +10,13 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public static final String COMMON_FIELD_CREATEDATE = "createDate";
 
     public static final String COMMON_FIELD_UPDATEDATE = "updateDate";
+    public static final String COMMON_FIELD_CREATETIME = "createTime";
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        Object fieldValue = getFieldValByName(COMMON_FIELD_CREATEDATE, metaObject);
+        Object fieldValue = getFieldValByName(COMMON_FIELD_CREATETIME, metaObject);
         if (fieldValue == null) {
-            setFieldValByName(COMMON_FIELD_CREATEDATE, new Date(), metaObject);
+            this.setFieldValByName(COMMON_FIELD_CREATETIME, new Date(), metaObject);
         }
     }
 
@@ -23,7 +24,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         Object testType = getFieldValByName(COMMON_FIELD_UPDATEDATE, metaObject);
         if (testType == null) {
-            setFieldValByName(COMMON_FIELD_UPDATEDATE, new Date(), metaObject);
+           this.setFieldValByName(COMMON_FIELD_UPDATEDATE, new Date(), metaObject);
         }
     }
 }

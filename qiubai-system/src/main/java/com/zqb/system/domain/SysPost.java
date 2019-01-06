@@ -1,6 +1,7 @@
 package com.zqb.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -74,6 +75,11 @@ public class SysPost implements Serializable {
      * 备注
      */
     private String remark;
+
+
+    /** 用户是否存在此岗位标识 默认不存在 */
+    @TableField(exist = false)
+    private boolean flag = false;
 
 
 }

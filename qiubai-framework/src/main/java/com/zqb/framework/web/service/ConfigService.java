@@ -26,7 +26,7 @@ public class ConfigService {
     public String getKey(String configKey) {
         LambdaQueryWrapper<SysConfig> queryWrapper = new QueryWrapper<SysConfig>().lambda().eq(SysConfig::getConfigKey, configKey);
         SysConfig sysConfig = configService.getOne(queryWrapper);
-        String key = sysConfig.getConfigKey();
+        String key = sysConfig.getConfigValue();
         return key;
     }
 }

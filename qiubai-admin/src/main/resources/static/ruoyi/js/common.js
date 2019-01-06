@@ -35,6 +35,7 @@ $(function() {
 		        max: $('#endTime').val(),
 		        theme: 'molv',
 		        trigger: 'click',
+
 		        done: function(value, date) {
 		            // 结束时间大于开始时间
 		            if (value !== '') {
@@ -47,7 +48,9 @@ $(function() {
 		                endDate.config.min.date = '';
 		            }
 		        }
-		    });
+		    }
+		    );
+
 		    var endDate = laydate.render({
 		        elem: '#endTime',
 		        min: $('#startTime').val(),

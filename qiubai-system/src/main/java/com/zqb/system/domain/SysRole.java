@@ -1,12 +1,16 @@
 package com.zqb.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -83,6 +87,17 @@ public class SysRole implements Serializable {
      * 备注
      */
     private String remark;
+
+    /**
+     * 用户是否存在此角色标识 默认不存在
+     */
+    @TableField(exist = false)
+    private boolean flag = false;
+
+
+    /** 请求参数 */
+    @TableField(exist = false)
+    private Map<String, Object> params= new HashMap<>();
 
 
 }

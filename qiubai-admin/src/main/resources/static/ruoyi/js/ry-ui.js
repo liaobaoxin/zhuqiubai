@@ -69,6 +69,7 @@
             // 搜索-默认第一个form
             search: function(formId) {
             	var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
+
     		    var params = $("#bootstrap-table").bootstrapTable('getOptions');
     		    params.queryParams = function(params) {
     		        var search = {};
@@ -81,7 +82,7 @@
     		        search.orderByColumn = params.sort;
     		        search.isAsc = params.order;
     		        return search;
-    		    }
+    		    };
     		    $("#bootstrap-table").bootstrapTable('refresh', params);
     		},
     		// 下载-默认第一个form

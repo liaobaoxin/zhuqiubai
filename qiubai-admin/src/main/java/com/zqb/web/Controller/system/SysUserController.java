@@ -4,16 +4,19 @@ import com.zqb.common.annotation.Log;
 import com.zqb.common.base.AjaxResult;
 import com.zqb.common.enums.BusinessType;
 import com.zqb.common.utils.ExcelUtil;
+import com.zqb.common.utils.StringUtils;
 import com.zqb.framework.shiro.service.SysPasswordService;
 import com.zqb.framework.util.ShiroUtils;
 import com.zqb.framework.web.base.BaseController;
 import com.zqb.framework.web.page.TableDataInfo;
 import com.zqb.system.domain.SysUser;
+import com.zqb.system.service.ISysPostService;
 import com.zqb.system.service.ISysRoleService;
 import com.zqb.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +40,9 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private SysPasswordService passwordService;
+
+    @Autowired
+    ISysPostService postService;
 
     @RequiresPermissions("system:user:view")
     @GetMapping()
@@ -120,4 +126,64 @@ public class SysUserController extends BaseController {
     public String checkEmailUnique(SysUser user) {
         return userService.checkEmailUnique(user);
     }
+
+    /**
+     * 新增用户
+     */
+    @GetMapping("/add")
+    public String add(ModelMap mmap)
+    {
+        mmap.put("roles", roleService.list());
+        mmap.put("posts", postService.list());
+        return prefix + "/add";
+    }
+
+    /**
+     * 新增保存用户
+     */
+    @RequiresPermissions("system:user:add")
+    @Log(title = "用户管理", businessType = BusinessType.INSERT)
+    @PostMapping("/add")
+    @Transactional(rollbackFor = Exception.class)
+    @ResponseBody
+    public AjaxResult addSave(SysUser user) {
+        if (StringUtils.isNotNull(user.getUserId()) && SysUser.isAdmin(user.getUserId())) {
+            return error("不允许修改超级管理员用户");
+        }
+        user.setSalt(ShiroUtils.randomSalt());
+        user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
+        user.setCreateBy(ShiroUtils.getLoginName());
+        return toAjax(userService.insertUser(user));
+    }
+
+
+    /**
+     * 修改用户
+     */
+    @GetMapping("/edit/{userId}")
+    public String edit(@PathVariable("userId") Long userId, ModelMap mmap) {
+        mmap.put("user", userService.selectUserById(userId));
+        mmap.put("roles", roleService.selectRolesByUserId(userId));
+        mmap.put("posts", postService.selectPostsByUserId(userId));
+        return prefix + "/edit";
+    }
+
+    /**
+     * 修改保存用户
+     */
+    @RequiresPermissions("system:user:edit")
+    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit")
+    @Transactional(rollbackFor = Exception.class)
+    @ResponseBody
+    public AjaxResult editSave(SysUser user) {
+        if (StringUtils.isNotNull(user.getUserId()) && SysUser.isAdmin(user.getUserId())) {
+            return error("不允许修改超级管理员用户");
+        }
+        user.setUpdateBy(ShiroUtils.getLoginName());
+        return toAjax(userService.updateUser(user));
+    }
+
+
+
 }

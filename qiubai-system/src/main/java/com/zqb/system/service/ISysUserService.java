@@ -121,5 +121,22 @@ public interface ISysUserService extends IService<SysUser> {
      */
     public String selectUserRoleGroup(Long userId);
 
+    /**
+     * 保存用户信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    public int insertUser(SysUser user);
+
+    /**
+     * 保存用户信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    public int updateUser(SysUser user);
+
+
 
 }
