@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zqb.common.annotation.Excel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -34,6 +35,7 @@ public class SysUser  implements Serializable {
      * 用户ID
      */
     @TableId(value = "user_id", type = IdType.AUTO)
+    @Excel(name = "用户序号")
     private Long userId;
 
     /**
@@ -44,11 +46,13 @@ public class SysUser  implements Serializable {
     /**
      * 登录账号
      */
+    @Excel(name = "登录名称")
     private String loginName;
 
     /**
      * 用户昵称
      */
+    @Excel(name = "用户名称")
     private String userName;
 
     /**
@@ -59,6 +63,7 @@ public class SysUser  implements Serializable {
     /**
      * 用户邮箱
      */
+    @Excel(name = "用户邮箱")
     private String email;
 
     /**
@@ -69,6 +74,7 @@ public class SysUser  implements Serializable {
     /**
      * 用户性别（0男 1女 2未知）
      */
+    @Excel(name = "用户性别")
     private String sex;
 
     /**
@@ -89,6 +95,7 @@ public class SysUser  implements Serializable {
     /**
      * 帐号状态（0正常 1停用）
      */
+    @Excel(name = "帐号状态")
     private String status;
 
     /**
@@ -99,11 +106,13 @@ public class SysUser  implements Serializable {
     /**
      * 最后登陆IP
      */
+    @Excel(name = "最后登陆IP")
     private String loginIp;
 
     /**
      * 最后登陆时间
      */
+    @Excel(name = "最后登陆时间")
     private LocalDateTime loginDate;
 
     /**
