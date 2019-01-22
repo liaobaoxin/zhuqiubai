@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+	  xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
@@ -11,7 +11,7 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								部门名称：<input type="text" name="deptName"/>
+								部门名称：<input name="deptName" type="text"/>
 							</li>
 							<li>
 								部门状态：<select name="status" th:with="type=${@dict.getType('sys_normal_disable')}">
@@ -40,7 +40,7 @@
                 </a>
 	        </div>
        		 <div class="col-sm-12 select-table table-striped">
-	            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+	            <table data-mobile-responsive="true" id="bootstrap-table"></table>
 	        </div>
 	    </div>
 	</div>

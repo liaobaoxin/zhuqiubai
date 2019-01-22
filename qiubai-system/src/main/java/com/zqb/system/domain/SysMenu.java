@@ -1,7 +1,9 @@
 package com.zqb.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -30,7 +32,7 @@ public class SysMenu implements Serializable {
      * 菜单ID
      */
     @TableId(value = "menu_id", type = IdType.AUTO)
-    private Integer menuId;
+    private Long menuId;
 
     /**
      * 菜单名称
@@ -85,6 +87,7 @@ public class SysMenu implements Serializable {
     /**
      * 更新者
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private String updateBy;
 
     /**
@@ -96,6 +99,9 @@ public class SysMenu implements Serializable {
      * 备注
      */
     private String remark;
+
+    @TableField(exist = false)
+    private String parentName;
 
 
     /**

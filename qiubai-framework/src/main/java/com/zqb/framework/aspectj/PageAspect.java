@@ -27,6 +27,7 @@ public class PageAspect {
      */
     @AfterReturning(pointcut = "pagePointCut()")
     public void doBefore(JoinPoint joinPoint) {
+        System.out.println("执行了吗？");
         startPage();
 
     }

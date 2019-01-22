@@ -7,6 +7,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface Page {
 
-    int page() default 10;
+    int page() ;
 
 }

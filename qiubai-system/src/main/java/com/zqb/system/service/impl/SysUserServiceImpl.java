@@ -108,7 +108,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public int deleteUserById(Long userId) {
         // 删除用户与角色关联
-        userRoleMapper.deleteById(userId);
+        userRoleMapper.deleteUserRoleByUserId(userId);
         // 删除用户与岗位表
         userPostMapper.deleteById(userId);
         return userMapper.deleteUserById(userId);
