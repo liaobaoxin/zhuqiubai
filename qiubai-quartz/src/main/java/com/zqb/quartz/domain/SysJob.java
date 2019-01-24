@@ -1,4 +1,4 @@
-package com.zqb.system.domain;
+package com.zqb.quartz.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -14,44 +14,59 @@ import java.util.Map;
 
 /**
  * <p>
- * 参数配置表
+ * 定时任务调度表
  * </p>
  *
  * @author zqb
- * @since 2018-12-24
+ * @since 2019-01-24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysConfig implements Serializable {
+public class SysJob implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 参数主键
+     * 任务ID
      */
-    @TableId(value = "config_id", type = IdType.AUTO)
-    private Long configId;
+    @TableId(value = "job_id", type = IdType.AUTO)
+    private Long jobId;
 
     /**
-     * 参数名称
+     * 任务名称
      */
-    private String configName;
+    private String jobName;
 
     /**
-     * 参数键名
+     * 任务组名
      */
-    private String configKey;
+    private String jobGroup;
 
     /**
-     * 参数键值
+     * 任务方法
      */
-    private String configValue;
+    private String methodName;
 
     /**
-     * 系统内置（Y是 N否）
+     * 方法参数
      */
-    private String configType;
+    private String methodParams;
+
+    /**
+     * cron执行表达式
+     */
+    private String cronExpression;
+
+    /**
+     * 计划执行错误策略（1继续 2等待 3放弃）
+     */
+    private String misfirePolicy;
+
+    /**
+     * 状态（0正常 1暂停）
+     */
+    private String status;
 
     /**
      * 创建者
@@ -74,16 +89,12 @@ public class SysConfig implements Serializable {
     private LocalDateTime updateTime;
 
     /**
-     * 备注
+     * 备注信息
      */
     private String remark;
-
-    @TableField(exist = false)
-    private Integer parentId;
 
     /** 请求参数 */
     @TableField(exist = false)
     private Map<String, Object> params=new HashMap<>();
-
 
 }

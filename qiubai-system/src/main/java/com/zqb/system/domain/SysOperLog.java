@@ -1,11 +1,14 @@
 package com.zqb.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -93,4 +96,7 @@ public class SysOperLog  {
     private LocalDateTime operTime;
 
 
+    /** 请求参数 */
+    @TableField(exist = false)
+    private Map<String, Object> params=new HashMap<>();
 }

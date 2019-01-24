@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@MapperScan("com.zqb.system.mapper")
+@MapperScan("com.zqb.*.mapper")
 @EnableTransactionManagement(proxyTargetClass = true)
 public class MybatisPlusConfig {
 
